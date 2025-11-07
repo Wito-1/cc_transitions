@@ -1,0 +1,63 @@
+# transitions_cfg.yaml
+asan_copts: &asan_copts
+  copts:
+    - "-O2"
+    - -fsanitize=address
+
+asan_linkopts: &asan_linkopts
+  linkopts:
+    - "-O2"
+    - -fsanitize=address
+
+tsan_copts: &tsan_copts
+  copts:
+    - "-O2"
+    - -fsanitize=thread
+
+tsan_linkopts: &tsan_linkopts
+  linkopts:
+    - "-O2"
+    - -fsanitize=thread
+
+build_configurations:
+  # For the specific platform
+  - name: "asan"
+    platform: "@transitions//:linux-x86_64"
+    compilation_mode: "opt"
+    <<: *asan_copts
+    <<: *asan_linkopts
+  # For the specific platform
+  - name: "asan"
+    platform: "@transitions//:osx-arm64"
+    compilation_mode: "opt"
+    <<: *asan_copts
+    <<: *asan_linkopts
+  - name: "asan"
+    compilation_mode: "opt"
+    <<: *asan_copts
+    <<: *asan_linkopts
+
+  - name: ""
+    platform: "@transitions//:osx-arm64"
+    compilation_mode: "opt"
+  # For the host platform
+  - name: ""
+    platform: "@transitions//:linux-x86_64"
+    compilation_mode: "opt"
+
+  - name: "tsan"
+    platform: "@transitions//:linux-x86_64"
+    compilation_mode: "opt"
+    <<: *tsan_copts
+    <<: *tsan_linkopts
+  # For the specific platform
+  - name: "tsan"
+    platform: "@transitions//:osx-arm64"
+    compilation_mode: "opt"
+    <<: *tsan_copts
+    <<: *tsan_linkopts
+  # For the host platform
+  - name: "tsan"
+    compilation_mode: "opt"
+    <<: *tsan_copts
+    <<: *tsan_linkopts
