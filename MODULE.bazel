@@ -1,0 +1,14 @@
+module(
+    name = "cc_transitions",
+)
+bazel_dep(name = "rules_cc", version = "0.2.14")
+bazel_dep(name = "with_cfg.bzl", version = "0.13.0")
+bazel_dep(name = "platforms", version = "1.0.0")
+
+cc_transitions = use_extension("//extensions:cc_transitions.bzl", "cc_transitions", dev_dependency=True)
+
+cc_transitions.install(
+    name = "foo",
+    configuration = "//:transitions_cfg.yaml",
+)
+use_repo(cc_transitions, "foo")

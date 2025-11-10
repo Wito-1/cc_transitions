@@ -1,0 +1,34 @@
+load("@rules_cc_transitions//:defs.bzl", "cc_test")
+
+# Generates the following targets:
+
+# Normal binary
+# 1. macro_bar - vanilla binary built for host platform
+
+# Binary with sanitizers
+# 1. macro_bar.asan - Binary built for host platform with asan flags
+# 1. macro_bar.tsan - Binary built for host platform with tsan flags
+
+# Cross-compiled binaries
+# 1. macro_bar-linux-x86_64 - Binary built for linux / x86
+# 1. macro_bar-linux-arm64 - Transitioned binary built for linux/arm64 platform
+
+# Cross-compiled binaries with sanitizers
+# 1. macro_bar-linux-arm64.asan - Transitioned binary built for linux/arm64 platform
+# 1. macro_bar-linux-arm64.asan - Transitioned binary built for linux/arm64 platform
+# 1. macro_bar-linux-x86_64.asan - Binary built for linux / x86
+# 1. macro_bar-linux-x86_64.tsan - Binary built for linux / x86
+
+cc_test(
+    name = "hello_world_test",
+    srcs = ["hello_world.cpp"],
+    platforms = [
+      "//:linux-x86_64",
+      "//:linux-aarch64",
+    ],
+    cfgs = [
+      "asan",
+      "tsan",
+    ],
+    linkopts = ["-lstdc++"],
+)

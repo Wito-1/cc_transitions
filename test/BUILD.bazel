@@ -1,0 +1,38 @@
+load("@foo//:defs.bzl", "asan_osx_arm64_cc_test", "cc_test")
+
+asan_osx_arm64_cc_test(
+    name = "bar",
+    srcs = ["hello_world.cpp"],
+)
+
+# Generates the following targets:
+
+# Normal binary
+# 1. macro_bar - vanilla binary built for host platform
+
+# Binary with sanitizers
+# 1. macro_bar.asan - Binary built for host platform with asan flags
+# 1. macro_bar.tsan - Binary built for host platform with tsan flags
+
+# Cross-compiled binaries
+# 1. macro_bar-linux-x86_64 - Binary built for linux / x86
+# 1. macro_bar-osx-arm64 - Transitioned binary built for osx/arm64 platform
+
+# Cross-compiled binaries with sanitizers
+# 1. macro_bar-osx-arm64.asan - Transitioned binary built for osx/arm64 platform
+# 1. macro_bar-osx-arm64.asan - Transitioned binary built for osx/arm64 platform
+# 1. macro_bar-linux-x86_64.asan - Binary built for linux / x86
+# 1. macro_bar-linux-x86_64.tsan - Binary built for linux / x86
+
+cc_test(
+    name = "macro_bar",
+    srcs = ["hello_world.cpp"],
+    platforms = [
+      "//:osx-arm64",
+      "//:linux-x86_64",
+    ],
+    cfgs = [
+      "asan",
+      "tsan",
+    ],
+)
