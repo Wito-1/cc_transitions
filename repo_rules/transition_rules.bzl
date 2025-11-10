@@ -130,15 +130,15 @@ transition_rules = repository_rule(
         ),
         "_transition_rule_template": attr.label(
             allow_single_file = True,
-            default = Label("@//templates:rule_transition.bzl.tpl")
+            default = Label("//templates:rule_transition.bzl.tpl")
         ),
         "_rule_builder": attr.label(
             allow_single_file = True,
-            default = Label("@//templates:rule_builder.bzl")
+            default = Label("//templates:rule_builder.bzl")
         ),
         "_cc_transition_template": attr.label(
             allow_single_file = True,
-            default = Label("@//templates:cc_transitions.bzl.tpl")
+            default = Label("//templates:cc_transitions.bzl.tpl")
         ),
     },
 )
