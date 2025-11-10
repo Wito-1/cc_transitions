@@ -1,7 +1,6 @@
 def _transition_rules_impl(rctx):
     yaml_path = rctx.attr.configuration
     yaml_contents = rctx.read(yaml_path)
-#    rctx.file(rctx.attr.configuration.name, yaml_contents)
 
     yq_path = rctx.which("yq")
     if not yq_path:
@@ -32,9 +31,7 @@ def _transition_rules_impl(rctx):
     }
     for config in build_configs:
         substitutions = {
-#            "{{GENERATED_REPO}}": rctx.attr.name,
             "{{RULE}}": cc_rule,
-#            "{{BZL}}": ??,
         }
         platform = config.get("platform", "")
         copts = config.get("copts", [])
@@ -66,7 +63,6 @@ def _transition_rules_impl(rctx):
             "{{COPTS}}": str(copts),
             "{{LINKOPTS}}": str(linkopts),
             "{{EXTRA_FLAGS}}": str(extra_bazel_flags),
-            #"{{EXTRA_FLAGS}}": str({"\"{}\"".format(k): "\"{}\"".format(v) for k,v in extra_bazel_flags.items()}),
         })
 
         rule_file = "{}.bzl".format(prefix)
