@@ -1,12 +1,4 @@
-load("@rules_cc_transitions//:defs.bzl", "asan_osx_arm64_cc_test", "cc_test")
-
-
-# Excample of just being able to use one particular transition target
-
-#asan_osx_arm64_cc_test(
-#    name = "hello_world_arm64_osx",
-#    srcs = ["hello_world.cpp"],
-#)
+load("@rules_cc_transitions//:defs.bzl", "cc_test")
 
 # Generates the following targets:
 
@@ -33,9 +25,11 @@ cc_test(
     platforms = [
 #      "//:osx-arm64",
       "//:linux-x86_64",
+      "//:linux-aarch64",
     ],
     cfgs = [
       "asan",
       "tsan",
     ],
+    linkopts = ["-lstdc++"],
 )

@@ -7,6 +7,14 @@ platform(
 )
 
 platform(
+    name = "linux-aarch64",
+    constraint_values = [
+        "@platforms//cpu:aarch64",
+        "@platforms//os:linux",
+    ],
+)
+
+platform(
     name = "osx-arm64",
     constraint_values = [
         "@platforms//cpu:arm64",

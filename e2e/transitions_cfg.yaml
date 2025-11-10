@@ -28,7 +28,7 @@ build_configurations:
     <<: *asan_linkopts
   # For the specific platform
   - name: "asan"
-    platform: "@cc_transitions//:osx-arm64"
+    platform: "@cc_transitions//:linux-aarch64"
     compilation_mode: "opt"
     <<: *asan_copts
     <<: *asan_linkopts
@@ -38,7 +38,7 @@ build_configurations:
     <<: *asan_linkopts
 
   - name: ""
-    platform: "@cc_transitions//:osx-arm64"
+    platform: "@cc_transitions//:linux-aarch64"
     compilation_mode: "opt"
   # For the host platform
   - name: ""
@@ -52,7 +52,7 @@ build_configurations:
     <<: *tsan_linkopts
   # For the specific platform
   - name: "tsan"
-    platform: "@cc_transitions//:osx-arm64"
+    platform: "@cc_transitions//:linux-aarch64"
     compilation_mode: "opt"
     <<: *tsan_copts
     <<: *tsan_linkopts

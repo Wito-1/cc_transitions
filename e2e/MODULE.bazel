@@ -2,6 +2,32 @@ module(
     name = "test_cc_transitions",
 )
 
+# Hermetic GCC
+bazel_dep(name = "gcc_toolchain", version = "0.9.0")
+
+gcc_toolchains = use_extension("@gcc_toolchain//toolchain:module_extensions.bzl", "gcc_toolchains", dev_dependency = True)
+
+[
+    [
+        gcc_toolchains.toolchain(
+            name = "gcc_toolchain_{}".format(arch),
+            target_arch = arch,
+	    gcc_version = "13.4.0",
+        ),
+        use_repo(gcc_toolchains, "gcc_toolchain_{}".format(arch)),
+        register_toolchains(
+            "@gcc_toolchain_{}//:cc_toolchain".format(arch),
+            "@gcc_toolchain_{}//:fortran_toolchain".format(arch),
+            dev_dependency = True,
+        ),
+    ]
+    for arch in [
+        "aarch64",
+        "x86_64",
+    ]
+]
+
+# CC Transition Rules
 bazel_dep(name = "cc_transitions")
 local_path_override(
     module_name = "cc_transitions",
@@ -14,3 +40,4 @@ cc_transitions.install(
     configuration = "//:transitions_cfg.yaml",
 )
 use_repo(cc_transitions, "rules_cc_transitions")
+
